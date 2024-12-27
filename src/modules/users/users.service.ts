@@ -2,11 +2,7 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { MODELS } from '../../constants';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../../entity/user.entity';
-import {
-  AuthLoginDto,
-  AuthResDto,
-  PaginationParams,
-} from './dto/user.dto';
+import { AuthLoginDto, AuthResDto, PaginationParams } from './dto/user.dto';
 import { AuthorizationService } from '../../utils/authorization.service';
 import { getPaginationResponse } from '../../utils/pagination.builder';
 
@@ -42,12 +38,17 @@ export class UsersService {
         where: {
           phoneNumber: payload.phoneNumber,
         },
-      })
-
+      });
+      if (!result) {
+        throw new HttpException(
+          'Invalid phone number or password',
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
       if (result.password !== payload.password) {
         throw new HttpException(
-            'Invalid phone number or password',
-            HttpStatus.UNAUTHORIZED,
+          'Invalid phone number or password',
+          HttpStatus.UNAUTHORIZED,
         );
       }
 
