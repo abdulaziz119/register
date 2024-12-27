@@ -10,5 +10,6 @@ import { AuthorizationService } from '../../utils/authorization.service';
   imports: [DatabaseModule],
   controllers: [UsersController, AuthController],
   providers: [...usersProviders, UsersService, AuthorizationService],
+  exports: [UsersService, AuthorizationService],
 })
 export class UsersModule {}
