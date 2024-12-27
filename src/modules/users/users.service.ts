@@ -39,13 +39,8 @@ export class UsersService {
           phoneNumber: payload.phoneNumber,
         },
       });
-      if (!result) {
-        throw new HttpException(
-          'Invalid phone number or password',
-          HttpStatus.UNAUTHORIZED,
-        );
-      }
-      if (result.password !== payload.password) {
+
+      if (!result || result.password !== payload.password) {
         throw new HttpException(
           'Invalid phone number or password',
           HttpStatus.UNAUTHORIZED,
