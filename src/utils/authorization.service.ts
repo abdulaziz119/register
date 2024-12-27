@@ -8,7 +8,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 @Injectable()
 export class AuthorizationService {
   async sign(user): Promise<string> {
-    console.log(user)
     const data = {
       id: user,
     };
